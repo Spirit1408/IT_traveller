@@ -15,7 +15,7 @@ import IButton from '../components/IButton/IButton.vue'
           ті, в яких би ти дуже хотів побувати. Тож не зволікай та спробуй сам.
         </p>
 
-        <IButton />
+        <IButton>Почати роботу</IButton>
       </div>
     </section>
 
@@ -24,4 +24,5 @@ import IButton from '../components/IButton/IButton.vue'
     </section>
   </main>
 </template>
-// In "views" folder storaging pages of the project
+// In "views" folder storaging pages of the project. Text of the button will be rendered inside of
+the button component, in a default slot.
