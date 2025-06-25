@@ -2,12 +2,17 @@
 import HomePageView from './views/HomepageView.vue'
 import { onMounted, onUnmounted, ref } from 'vue'
 
-const isDesktop = ref(window.innerWidth > 1024)
-const isTablet = ref(window.innerWidth > 768 && window.innerWidth <= 1024)
+const fruits = ['kiwi', 'apple', 'banana']
+const fruitsMap = {
+  kiwi: 'Super kiwi',
+  apple: 'Super apple',
+  banana: 'Super banana',
+}
+
+const isTablet = ref(window.innerWidth > 768)
 
 const handleResize = () => {
-  isDesktop.value = window.innerWidth > 1024
-  isTablet.value = window.innerWidth > 768 && window.innerWidth <= 1024
+  isTablet.value = window.innerWidth > 768
 }
 
 onMounted(() => {
@@ -20,26 +25,42 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <template v-if="isDesktop"><HomePageView /></template>
+  <ul>
+    <li v-for="(fruit, index) in fruits" :key="fruit">
+      <span class="w-2 h-2 bg-red-600 rounded-full inline-block" v-if="fruit === 'apple'" />
+      <span class="w-2 h-2 bg-green-600 rounded-full inline-block" v-else-if="fruit === 'kiwi'" />
+      <span class="w-2 h-2 bg-yellow-600 rounded-full inline-block" v-else />
+      {{ fruit }} - {{ index + 1 }}
+      <p class="inline-block ml-[-4px]">
+        <span v-if="index + 1 == 1">st</span>
+        <span v-else-if="index + 1 == 2">nd</span>
+        <span v-else>rd</span>
+        fruit
+      </p>
+    </li>
+  </ul>
 
-  <template v-else-if="isTablet"><div>This is tablet</div></template>
+  <ul>
+    <li v-for="(fruit, key) in fruitsMap" :key="fruit">
+      {{ key[0].toUpperCase() + key.slice(1) }}: {{ fruit }}
+    </li>
+  </ul>
 
-  <template v-else><div class="text-red-600">This is mobile</div></template>
+  <ul>
+    <li v-for="number in 5" :key="number">{{ number }}</li>
+  </ul>
 
-  <div v-show="!isDesktop && !isTablet" class="text-green-600">
-    This is hidden element in all cases except mobile
-  </div>
+  <ul v-if="isTablet">
+    <li v-for="letter in 'hello'" :key="letter">{{ letter }}</li>
+  </ul>
+
+  <HomePageView />
 </template>
-// v-if directive using for conditional rendering. If condition is true - component will be
-rendered. Added reactivity using ref, mounted and unmounted hooks. Everytime while window is resized
-- handleResize function will be called (to check if window width is greater than 1024px etc). If not
-- isDesktop will be false and component will not be rendered. Can use additional rendering
-conditions using v-else-if with different condition. v-else - for condition, which is not described
-in pervious ones. Important that v-if, v-else-if and v-else should be neighbours in template! Inner
-template can work as a Fragment from React - to group several components together without using
-extra divs. By using templates we can get a better visualization of the conditional logic (but in
-this case, as we spoke before, we should use v-conditions directly in templates - neighbours of each
-other on the same first level of hierarchy). V-show - to show/hide elements without rendering them
-(display:none) according to the condition. Should be used only in elements, but never being used in
-templates! Another rule that should be followed: v-if, v-else-if and v-else should be neighbours
-without any other elements in between!
+// Cycle v-for using for iteration through iterable objects. Can be used for lists, sets, maps and
+objects. To create a list in this example we should use this syntax not in the parent element (ul),
+but in the element, which will be rendered (li). For example - using v-for in div element will
+iterate object and render divs with value for each item. V-for accepts 2 parameters (item (possible
+with index) and array of items) and :key - unique identificator of each item. By default v-for will
+render all VALUES from iterable object. To render keys we can add them as a second parameter to
+item. Can use v-for in each iterable elements, such as arrays, strings, maps, numbers and objects!
+V-if and v-for can`t be used in the same element!
