@@ -1,9 +1,10 @@
 <script setup>
 import HomePageView from './views/HomepageView.vue'
-import FavoritePlace from './components/FavoritePlace/FavoritePlace.vue'
+import FavoritePlaces from './components/FavoritePlaces/FavoriePlaces.vue'
 </script>
 
 <template>
-  <FavoritePlace />
+  <FavoritePlaces />
+
   <HomePageView />
 </template>
