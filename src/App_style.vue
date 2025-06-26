@@ -13,7 +13,8 @@ const classes = {
   <div>Hello, Vue <IButton :class="classes" /></div>
 </template>
 // HTML template for current (main) component. We can use other components here. Using inline
-Tailwind styles (in rems when numbers are used!). Using dynamic classes (:class)
+Tailwind styles (in rems when numbers are used!). Using dynamic classes (:class) in parent conponent
+to child one. Can`t use classes directly in 'template' tags!
 
 <style scoped>
 .btn-red {
