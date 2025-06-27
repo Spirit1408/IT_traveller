@@ -1,14 +1,27 @@
+<script setup>
+import { defineProps } from 'vue'
+
+const props = defineProps({
+  variant: {
+    default: 'primary',
+    type: String,
+    required: true,
+    validator: (value) => ['primary', 'gradient'].includes(value),
+  },
+}) // Declaration of the props with name "variant" for the component IButton, taking just a string values and should be required. Using default value "primary" if there is no value for the prop, and validator for checking if the value is "primary" or "gradient" (from array of possible values).
+const bgStyles =
+  props.variant === 'gradient' ? 'bg-gradient-to-r from-[#FFA279] to-[#F3743D]' : 'bg-[#FFA270]' // class of the button, which will be applied depending on the value of the variant prop
+</script>
+
 <template>
   <button
-    class="btn bg-[#ffa270] rounded-xl py-[14px] px-10 text-white font-bold -tracking-wider hover:bg-[#ffb58d] duration-300 ease-in-out"
+    class="btn rounded-xl py-[14px] px-10 text-white font-bold -tracking-wider hover:bg-[#ffb58d] duration-300 ease-in-out"
+    :class="bgStyles"
   >
-    <div v-if="!$slots.default">No default content</div>
-    <slot>Template of the button text</slot>
+    <slot></slot>
   </button>
 </template>
-// Using default slot (in IButton, analog "children" in React) provides possibily to use specific
-content inside of the component with slot. In current example text of the button will be rendered
-inside of the IButton component, inside of the slot tags. In the slot tag we can also add some
-content, which will be seing just if there is no content between IButton tags. By using condition we
-can check if we are using template text in the slot, or default value, which we can put to the
-IButton component ("Почати роботу", in this case $slots.default will be true).
+
+// Using dynamic classes for the button to change the color of the background depending on the value
+of the variant prop. Prop declared with some restrictions about it`s value - required and type.
+Recommended to use with validator, to check if the value of te prop is permitted.

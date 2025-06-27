@@ -35,7 +35,9 @@ possible by using .value property of the ref object.
 
     <IButton class="mt-10 w-full" @click="increment">Додати маркер</IButton>
     <IButton class="mt-10 w-full" @click="changeUserData">Change user data</IButton>
-    <IButton class="mt-10 w-full" @click="changeSuperUserName">Change super user data</IButton>
+    <IButton class="mt-10 w-full" variant="gradient" @click="changeSuperUserName"
+      >Change super user data</IButton
+    >
   </div>
 </template>
 // Using ref variable to count number of added markers. Counter will be displayed inside of the
@@ -46,3 +48,6 @@ property "value", value of which is an object with user's data, wrapped in react
 that in function with superUser object we aren't using "value" property to change its value, just
 ordinary syntax of objects. But using refs is recommended, because of more flexibility and
 reactivity. Usage of reactive can be good in forms.
+
+// Using props with last IButton component. Name
+of props was declared using "defineProps" function in the IButton component.
