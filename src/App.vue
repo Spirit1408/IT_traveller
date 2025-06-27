@@ -11,3 +11,4 @@ import FavoritePlace from './components/FavoritePlace/FavoritePlace.vue'
 
   <HomePageView />
 </template>
+// Using v-slot (#) directive to render FavoritePlace component 4 times (will be rendered in FavoritePlaces component).
