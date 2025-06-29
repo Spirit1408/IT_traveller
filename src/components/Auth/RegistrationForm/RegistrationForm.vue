@@ -1,25 +1,37 @@
 <script setup>
 import IButton from '@/components/IButton/IButton.vue'
 import IInput from '@/components/IInput/IInput.vue'
+import { reactive, toRaw } from 'vue'
 
 const emit = defineEmits(['submit'])
+
+const userData = reactive({
+  name: '',
+  email: '',
+  password: '',
+})
 </script>
 
 <template>
   <form
     class="max-w-[500px] w-full bg-white p-10 rounded-2xl"
-    @submit.prevent="emit('submit', { name: 'Vasya' })"
+    @submit.prevent="emit('submit', toRaw(userData))"
   >
-    <IInput label="Повне ім'я" class="mb-4" />
-    <IInput label="Електронна пошта" class="mb-4" type="email" placeholder="email@gmail.com" />
-    <IInput label="Пароль" type="password" />
+    <IInput label="Повне ім'я" class="mb-4" v-model="userData.name" />
+    <IInput
+      label="Електронна пошта"
+      class="mb-4"
+      type="email"
+      placeholder="email@gmail.com"
+      v-model="userData.email"
+    />
+    <IInput label="Пароль" type="password" v-model="userData.password" />
 
     <IButton class="mt-10 w-full" variant="gradient" type="submit">Створити аккаунт</IButton>
   </form>
 </template>
-// All the props of the IInput component will be applied to the form element (by default). But in
-the IInput component we can define all the props (and events) and it's usage in the specific
-elements (label, input etc). Emits - functionality for sending data from child to parent (custom
-events). In other speaking - we are saying that we want to send specific data (which we can write in
-calling of the "emit" function) from the form to the parent component (App), preventing default
-behavior of the form.
+// using v-model to gather data from the form fields. This data will be emitted to App component,
+where will be shown in the console. Using specific properties from userData to connect with the
+specific form fields. By default data, which App will receive, will be in Proxy(Object) format
+(because "reactive" function return Proxy(Object)). To send data as an object, we need to use
+"toRaw" function!

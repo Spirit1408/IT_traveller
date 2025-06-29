@@ -1,5 +1,6 @@
 <script setup>
 const props = defineProps({
+  modelValue: String,
   label: String,
   placeholder: String,
   type: {
@@ -12,6 +13,8 @@ const props = defineProps({
 defineOptions({
   inheritAttrs: false,
 })
+
+const emit = defineEmits(['update:modelValue'])
 </script>
 
 <template>
@@ -22,18 +25,20 @@ defineOptions({
       <input
         class="w-full text-sm rounded-[4px] border-[#eaeaea] border-[1px] py-2 px-3 focus:outline-primary"
         v-bind="{ ...$props, ...$attrs }"
+        :value="modelValue"
+        @input="emit('update:modelValue', $event.target.value)"
       />
     </label>
   </div>
 </template>
 
-/* By default placeholders and types, which we can use in the input component from the parent
-component, will be applied to the parent element of the input component (div). We can change this by
-using props. This syntax will be applied to the input element: :placeholder="props.placeholder"
-:type="props.type". Or we can just use v-bind (syntax sygar is ":") to apply all required props to
-the input element (v-bind="$props"). To add attributes to the input element we can use
-v-bind="$attrs". Better practice is to merge props and attrs by using syntax {...$props, ...$attrs}.
-To prevent using attributes of input on the parent element we can use "defineOptions" function and
-set inheritAttrs to false. It will prevent adding attributes to the parent element. The same will be
-applied to events, which will be used not to the parent element, but directly to the input element
-(because events are also a part of the attributes). */
+// update:modelValue - we are defining a custom event (update) and data (modelValue), which will be
+senden from the input component to the parent component (form). It's a declared name (description)
+of this event. "modelName" - name of the prop, part of v-model. "update:modelName" - name of the
+event (also part of v-model). And also we are making the input controllable - value of the input
+will be taken from the parent component (form), updated in event "input" by using actual data from
+the input, and senden to the parent component using "emit". V-model helps to send data in two ways -
+from parent to child and from child to parent component. From parent - value dy default, initally,
+and from child to parent - an updated value. In "emit" we are making declaration - result of which
+event will be senden back. modelValue - name of the prop, part of v-model, by which we are receiving
+data from the parent component.
