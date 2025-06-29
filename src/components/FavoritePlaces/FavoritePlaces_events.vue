@@ -25,3 +25,5 @@ const changeBtnType = () => {
     >
   </div>
 </template>
+// Example of operating with events. Added some input component. @click - syntax sugar for
+v-on:click.
