@@ -13,7 +13,7 @@ const bgStyles = computed(() =>
   props.variant === 'gradient' ? 'bg-gradient-to-r from-[#FFA279] to-[#F3743D]' : 'bg-[#FFA270]',
 )
 </script>
-s
+
 <template>
   <button
     class="btn rounded-xl py-[14px] px-10 text-white font-bold -tracking-wider hover:bg-[#ffb58d] duration-300 ease-in-out"

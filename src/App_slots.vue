@@ -1,6 +1,6 @@
 <script setup>
 import HomePageView from './views/HomepageView.vue'
-import FavoritePlaces from './components/FavoritePlaces/FavoriePlaces.vue'
+import FavoritePlaces from './components/FavoritePlaces/FavoritePlaces_dynamic_props.vue'
 import FavoritePlace from './components/FavoritePlace/FavoritePlace.vue'
 </script>
 
@@ -11,4 +11,5 @@ import FavoritePlace from './components/FavoritePlace/FavoritePlace.vue'
 
   <HomePageView />
 </template>
-// Using v-slot (#) directive to render FavoritePlace component 4 times (will be rendered in FavoritePlaces component).
+// Using v-slot (#) directive to render FavoritePlace component 4 times (will be rendered in
+FavoritePlaces component).
