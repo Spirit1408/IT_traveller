@@ -25,17 +25,19 @@ const handleUploadImage = (e) => {
 </script>
 
 <template>
-  <label class="cursor-pointer hover:text-primary">
-    <input type="file" accept="image/*" class="hidden" @change="handleUploadImage" />
+  <div>
+    <label class="cursor-pointer hover:text-primary">
+      <input type="file" accept="image/*" class="hidden" @change="handleUploadImage" />
 
-    <span class="flex items-center gap-1">
-      <UploadIcon />
+      <span class="flex items-center gap-1">
+        <UploadIcon />
 
-      <span class="underline text-xs">Натисніть тут, щоб додати фото</span>
-    </span>
-  </label>
+        <span class="underline text-xs"><slot></slot></span>
+      </span>
+    </label>
 
-  <div v-if="errorMessage" class="text-red-500">{{ errorMessage }}</div>
+    <div v-if="errorMessage" class="text-red-500">{{ errorMessage }}</div>
+  </div>
 </template>
 // By @change we can add logic of image uploading to the element. Standard input will be hidden, but
 clicking on the label will open the file selector. Visually it will be replaced by span with icon
