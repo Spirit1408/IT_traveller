@@ -24,8 +24,6 @@ const baseStyles =
   'w-full text-sm rounded-[4px] border-[#eaeaea] border-[1px] py-2 px-3 focus:outline-primary'
 
 const inputStyles = computed(() => (isTextarea.value ? baseStyles + ' resize-none' : baseStyles))
-
-const componentName = computed(() => (isTextarea.value ? 'textarea' : 'input'))
 </script>
 
 <template>
@@ -33,21 +31,28 @@ const componentName = computed(() => (isTextarea.value ? 'textarea' : 'input'))
     <label class="block">
       <span class="block text-xs px-3 mb-2">{{ props.label }}</span>
 
-      <component
-        :is="componentName"
+      <textarea
         rows="3"
         :class="inputStyles"
         v-bind="{ ...$props, ...$attrs }"
         :value="modelValue"
         @input="emit('update:modelValue', $event.target.value)"
+        v-if="isTextarea"
       >
-      </component>
+      </textarea>
+
+      <input
+        :class="inputStyles"
+        v-bind="{ ...$props, ...$attrs }"
+        :value="modelValue"
+        @input="emit('update:modelValue', $event.target.value)"
+        v-else
+      />
     </label>
   </div>
 </template>
 
-// Further improvement of the input component. Instead of using "v-if, v-else" we can use one, but
-with a tag "component". It will put a proper tag name depending on the value of the prop "type" - if
-textarea, it will be "textarea", if not, it will be "input". Attribute ":is" is a reference to the
-computed tag name, which should be rendered, according to the value of the prop "type". In this way
-we create a multifunctional dynamic component.
+// Adding state isTextarea to render another format of the component (will be used in modal
+components). If IInput hasn't this prop, it will be rendered as our standard input. Similar logic to
+styles - if the input is textarea, we are adding "resize-none" class to the input element, the rest
+inputs will have standard baseStyles styles.

@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, Teleport } from 'vue'
 import CrossIcon from '../icons/CrossIcon.vue'
 
 const emit = defineEmits(['close'])
@@ -26,7 +26,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <Teleport to="body">
+  <component :is="Teleport" to="body">
     <div
       class="flex w-full h-full fixed top-0 left-0 overflow-auto bg-[rgba(0,0,0,0.3)]"
       @click.self="emit('close')"
@@ -39,7 +39,7 @@ onUnmounted(() => {
         <slot></slot>
       </div>
     </div>
-  </Teleport>
+  </component>
 </template>
 // Using emit for sending close event to the parent component, where the closing function will be
 executed (changing isOpen state to false). When v-if (in parent component, where component will be
@@ -51,4 +51,5 @@ be rendered exactly in the body element, not on any specific element (like App).
 ".self" is listeting to click on the element itself, not on the children of the element. Adding
 @keydown feature to the component allows to close the modal by pressing ESC, but won't work with div
 (because it's not focusable). In this case we can use event listener when component is mounted (and
-removed this event listener when component is unmounted).
+removed this event listener when component is unmounted). Using "component" tag to avoid error,
+which we can see while using Teleport component itself (some bug).
