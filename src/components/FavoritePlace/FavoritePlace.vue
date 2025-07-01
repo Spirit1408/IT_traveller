@@ -13,11 +13,17 @@ const props = defineProps({
     required: true,
   },
   img: String,
+  isActive: {
+    type: Boolean,
+    required: true,
+  },
 })
+
+const emit = defineEmits(['selected'])
 </script>
 
 <template>
-  <section class="text-gray mb-6 last-of-type:mb-0">
+  <section class="text-gray mb-6 last-of-type:mb-0" @click="emit('selected')">
     <div class="flex gap-4">
       <img class="w-[76px] h-[76px] shrink-0" :src="props.img" alt="" />
 
@@ -42,8 +48,10 @@ const props = defineProps({
       </div>
     </div>
 
-    <div class="h-[1px] w-full bg-[#ececec] mt-4"></div>
+    <div class="h-[1px] w-full mt-4" :class="props.isActive ? 'bg-primary' : 'bg-[#ececec]'"></div>
   </section>
 </template>
 
-// Dynamically rendering component with the specific data, received from props.
+// Dynamically rendering component with the specific data, received from props. Checking if the
+place is active or not. Also adding click event for marking place as active, emitting "selected"
+event to FavoritePlaces component.

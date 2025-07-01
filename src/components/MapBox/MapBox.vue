@@ -11,7 +11,13 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  activeId: {
+    type: [Number, null],
+    required: true,
+  },
 })
+
+const emit = defineEmits(['changeActiveId'])
 </script>
 
 <template>
@@ -23,7 +29,9 @@ const props = defineProps({
     :zoom="13"
   >
     <MapboxMarker v-for="place in props.places" :key="place.id" :lngLat="place.lngLat">
-      <MarkerIcon class="h-8 w-8" />
+      <button @click="emit('changeActiveId', place.id)">
+        <MarkerIcon class="h-8 w-8" :isActive="place.id !== props.activeId" />
+      </button>
     </MapboxMarker>
   </MapboxMap>
 </template>
@@ -33,4 +41,6 @@ the server. Putting this data dynamically (from settings.js). Also reccomended t
 from publishing on repository. Attribute "center" is a starting point of the map. "Zoom" - to set
 the starting zoom level (whole map by default). Adding props to render markers from the list of
 favorite places. MapboxMarker can receive props "lngLat" to render markers on the map by
-coordinates, and having default slot to render custom icons.
+coordinates, and having default slot to render custom icons. For creating interaction with active
+markers - using ref to store active marker id. The same for the marker on the map (MarkerIcon has
+state "isActive" to change color of the marker button will mark the marker as active).
