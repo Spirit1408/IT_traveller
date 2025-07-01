@@ -4,7 +4,7 @@ import IInput from '../IInput/IInput.vue'
 import InputImage from '../InputImage/InputImage.vue'
 import IButton from '../IButton/IButton.vue'
 import MarkerIcon from '../icons/MarkerIcon.vue'
-import { computed, onUnmounted, reactive, toRaw } from 'vue'
+import { computed, reactive, toRaw } from 'vue'
 
 const props = defineProps({
   isOpen: {
@@ -28,17 +28,11 @@ const handleUpload = (url) => {
 const uploadText = computed(() => {
   return formData.image ? 'Натисніть тут, щоб змінити фото' : 'Натисніть тут, щоб додати фото'
 })
-
-onUnmounted(() => {
-  formData.title = ''
-  formData.description = ''
-  formData.image = null
-})
 </script>
 
 <template>
   <IModal v-if="props.isOpen" @close="emit('close')">
-    <form class="min-w-[420px]" @submit.prevent="emit('submit', toRaw(formData))">
+    <form class="min-w-[420px]" @submit.prevent="(emit('submit', toRaw(formData)), emit('close'))">
       <div class="font-bold flex gap-1 justify-center mb-10"><MarkerIcon />Додати маркер</div>
 
       <IInput label="Локація" class="mb-4" v-model="formData.title" />

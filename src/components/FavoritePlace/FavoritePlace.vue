@@ -5,7 +5,7 @@ import DeleteIcon from './DeleteIcon.vue'
 </script>
 
 <template>
-  <section class="text-gray mb-6 last:mb-0">
+  <section class="text-gray mb-6 last-of-type:mb-0">
     <div class="flex gap-4">
       <img class="w-[76px] h-[76px] shrink-0" src="" alt="" />
 
