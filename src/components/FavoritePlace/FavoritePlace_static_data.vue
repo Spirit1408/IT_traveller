@@ -2,28 +2,16 @@
 import FavoritePlaceButton from './FavoritePlaceButton.vue'
 import EditIcon from './EditIcon.vue'
 import DeleteIcon from './DeleteIcon.vue'
-
-const props = defineProps({
-  title: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  img: String,
-})
 </script>
 
 <template>
   <section class="text-gray mb-6 last-of-type:mb-0">
     <div class="flex gap-4">
-      <img class="w-[76px] h-[76px] shrink-0" :src="props.img" alt="" />
+      <img class="w-[76px] h-[76px] shrink-0" src="" alt="" />
 
-      <div class="flex-1">
+      <div>
         <div class="flex justify-between items-center mb-2">
-          <h2 class="font-bold text-sm text-[#2c2c2c]">{{ props.title }}</h2>
+          <h2 class="font-bold text-sm text-[#2c2c2c]">Палац спорту</h2>
 
           <div class="flex gap-2">
             <FavoritePlaceButton>
@@ -37,7 +25,8 @@ const props = defineProps({
         </div>
 
         <p class="text-xs line-clamp-3">
-          {{ props.description }}
+          Київський палац спорту (КПС) - найбільша крита спротивно-видовищна споруда України,
+          розташована у центральній частині міста Київ, біля підніжжя Черепанової гори.
         </p>
       </div>
     </div>
@@ -45,5 +34,3 @@ const props = defineProps({
     <div class="h-[1px] w-full bg-[#ececec] mt-4"></div>
   </section>
 </template>
-
-// Dynamically rendering component with the specific data, received from props.
