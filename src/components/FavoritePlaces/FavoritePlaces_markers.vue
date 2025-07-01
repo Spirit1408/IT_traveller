@@ -13,7 +13,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['place-clicked'])
+const emit = defineEmits(['selected'])
 </script>
 
 <template>
@@ -27,7 +27,7 @@ const emit = defineEmits(['place-clicked'])
       :description="place.description"
       :img="place.img"
       :isActive="place.id === props.activeId"
-      @click="emit('place-clicked', place.id)"
+      @selected="emit('selected', place.id)"
     />
 
     <IButton class="mt-10 w-full" variant="gradient">Додати маркер</IButton>
@@ -37,6 +37,7 @@ const emit = defineEmits(['place-clicked'])
 // Adding prop for dynamically receiving the list of markers. Each one is an array of objects. Based
 on it we can render the list of markers and putting specific data of each of them by props "title",
 "description" and "img" to the FavoritePlace component. Also adding "isActive" prop to check if
-marker is active or not. Clicking on the element should emit "place-clicked" event with id of the
-clicked place to App component, where we will update "activeId" by id of the clicked place and
-gather its coordinates.
+marker is active or not. Also emitting "selected" event (with id!) of selected marker from
+FavoritePlace to App component, where we can update "activeId" value. Idea is - not just click on
+the marker will update the active id, but also click on the place in the list will do the same
+action.
