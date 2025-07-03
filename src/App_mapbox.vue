@@ -1,9 +1,9 @@
 <script setup>
-import FavoritePlaces from '../components/FavoritePlaces/FavoritePlaces.vue'
+import FavoritePlaces from './components/FavoritePlaces/FavoritePlaces.vue'
 import { MapboxMap, MapboxMarker } from '@studiometa/vue-mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import { mapSettings } from '../map/settings.js'
-import MarkerIcon from '../components/icons/MarkerIcon.vue'
+import { mapSettings } from './map/settings.js'
+import MarkerIcon from './components/icons/MarkerIcon.vue'
 import { ref } from 'vue'
 
 const { style, apiToken } = mapSettings
@@ -70,3 +70,17 @@ const changePlace = (id) => {
     </div>
   </main>
 </template>
+
+// "activeId" - id of selected marker (0 by default). By props sending to MapBox component. By
+clicking on marker button emitting "changeActiveId" event from MapBox with new id value and
+executing update of "activeId". Then this value is going to FavoritePlaces component, where
+condition of "isActive" prop is checking if id of place is equal to "activeId". According to it -
+styles of the FavoritePlace component will be changed. Editing previous logic (markers) - clicking
+on FavoritePlace should return id of the clicked place. In function "changePlace" we are changing
+active marker id and getting coordinates of the place by filtering favoritePlaces array by received
+id. On MapboxMap creating an instance of the map (for flying to the place by its coordinates) and
+writes it to "map" variable. For readability i moved component "MapBox" to the App component and
+delete dependencies of props. Clicking on place from the list will call "changePlace" function,
+which will change active id (for marking the place as active), gathering the coordinates of the
+clicked place and flying to it (as map became to be an interactive instance of the map - it has a
+method "flyTo", which receives an object with coordinates).
