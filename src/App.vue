@@ -1,15 +1,11 @@
 <script setup>
-import AuthView from './views/AuthView.vue';
-import GreetingView from './views/GreetingView.vue';
-import HomepageView from './views/HomepageView.vue';
-
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <GreetingView />
-  <HomepageView />
-  <AuthView />
+  <RouterView />
 </template>
 
-// Moving everythig from App to HomepageView with correction of import paths. From now on App
-component will be used for routing. Will have three pages: Greeting, Homepage and Auth.
+// Moving everything from App to HomepageView with correction of import paths. From now on App
+component will be used for routing. Will have three pages: Greeting, Homepage and Auth, each of them
+will be rendered in the router.
