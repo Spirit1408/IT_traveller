@@ -1,5 +1,4 @@
 <script setup>
-import FormContainer from '../FormContainer.vue'
 import IButton from '@/components/IButton/IButton.vue'
 import IInput from '@/components/IInput/IInput.vue'
 import { reactive, toRaw } from 'vue'
@@ -13,7 +12,7 @@ const userData = reactive({
 </script>
 
 <template>
-  <FormContainer @submit.prevent="emit('submit', toRaw(userData))">
+  <form @submit.prevent="emit('submit', toRaw(userData))">
     <IInput
       label="Електронна пошта"
       class="mb-4"
@@ -24,5 +23,7 @@ const userData = reactive({
     <IInput label="Пароль" type="password" v-model="userData.password" />
 
     <IButton class="mt-10 w-full" variant="gradient" type="submit">Увійти</IButton>
-  </FormContainer>
+  </form>
 </template>
+
+// Will replace FormContainer (which was the form-wrapper) (and it's styles) to the wrapper of RouterView and RouterLinks in AuthView page. Here will use just form element.

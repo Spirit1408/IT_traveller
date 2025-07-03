@@ -15,7 +15,7 @@ import BaseLayout from '@/layouts/BaseLayout.vue'
         в яких би ти дуже хотів побувати. Тож не зволікай та спробуй сам.
       </p>
 
-      <IButton>Почати роботу</IButton>
+      <IButton to="auth">Почати роботу</IButton>
     </div>
   </BaseLayout>
 </template>

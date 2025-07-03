@@ -11,7 +11,7 @@ const routes = [
   { path: '/auth', component: AuthView, children: [
     { path: 'login', component: LoginView },
     { path: 'registration', component: RegistrationView },
-  ]},
+  ], redirect: '/auth/login' },
   { path: '/map', component: HomepageView },
 ]
 
@@ -27,3 +27,5 @@ export const router = createRouter({
 // history will help for navigation purposes (using arrows back and forward in the browser to go back and forward between visited pages).
 
 // For adding nested routes adding children property to the route object of the parent route. Children property also will be an array of routes (now nested to the parent one). Rest of the syntax is the same. Note that in the path we are not using '/' at the beginning (analogy with nested routing in React).
+
+// Note! If going to auth route we can receive a bug - none of the nested router will be rendered and going by navigation links will be impossible (nested paged doesn't exist in parent level). To prevent this bug we need to add "redirect" property with path of the first children route to the parent route - it will always redirect to the first nested route automatically when going to the parent route.
