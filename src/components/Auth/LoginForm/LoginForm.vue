@@ -9,6 +9,13 @@ const userData = reactive({
   email: '',
   password: '',
 })
+
+defineProps({
+  isLoading: {
+    default: false,
+    type: Boolean,
+  },
+})
 </script>
 
 <template>
@@ -22,7 +29,7 @@ const userData = reactive({
     />
     <IInput label="Пароль" type="password" v-model="userData.password" />
 
-    <IButton class="mt-10 w-full" variant="gradient" type="submit">Увійти</IButton>
+    <IButton class="mt-10 w-full" variant="gradient" type="submit" :isLoading="isLoading">Увійти</IButton>
   </form>
 </template>
 
