@@ -4,12 +4,34 @@ import { MapboxMap, MapboxMarker } from '@studiometa/vue-mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { mapSettings } from '../map/settings.js'
 import MarkerIcon from '../components/icons/MarkerIcon.vue'
-import { onMounted, ref } from 'vue'
-import { getFavoritePlaces } from '@/api/favorite-places'
+import { ref } from 'vue'
 
 const { style, apiToken } = mapSettings
 
-const favoritePlaces = ref([])
+const favoritePlaces = [
+  {
+    id: 1,
+    title: 'Home',
+    description: 'Lovely place',
+    img: '',
+    lngLat: [35.000337443711736, 48.454519416090115],
+  },
+  {
+    id: 2,
+    title: 'Home 2',
+    description: 'An another lovely place',
+    img: '',
+    lngLat: [31.4573491690504, 49.30636401450199],
+  },
+  {
+    id: 3,
+    title: 'Home 3',
+    description: 'An another lovely place',
+    img: '',
+    lngLat: [-38.4476833924994, -12.991422329951817],
+  },
+]
+
 const activeId = ref(null)
 const map = ref(null)
 
@@ -18,15 +40,10 @@ const changeActiveId = (id) => {
 }
 
 const changePlace = (id) => {
-  const { lngLat } = favoritePlaces.value.find((place) => place.id === id)
+  const { lngLat } = favoritePlaces.find((place) => place.id === id)
   changeActiveId(id)
   map.value.flyTo({ center: lngLat })
 }
-
-onMounted(async () => {
-  const { data } = await getFavoritePlaces()
-  favoritePlaces.value = data
-})
 </script>
 
 <template>
@@ -53,7 +70,3 @@ onMounted(async () => {
     </div>
   </main>
 </template>
-
-// First steps of fetching data "favorite places" from API by "onMounted" hook (analogy to
-"useEffect" in React). Instead of static data we are fetching it from the API and store it in
-"favoritePlaces" variable (which is a referential, dynamic, object now).

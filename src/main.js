@@ -3,7 +3,13 @@ import './assets/main.css' // Import styles (general & specific, for main compon
 import { createApp } from 'vue' // Import of function to create the app
 import { createPinia } from 'pinia' // Import of Pinia (state manager, like Redux from React)
 import App from './App.vue' // Import of the main component from file
-import  { router } from './router' // Import of created router
+import { router } from './router' // Import of created router
+import { authService, TOKEN_KEY } from './api/authService' // Import of auth service
+
+const token = localStorage.getItem(TOKEN_KEY) // Getting token from local storage
+if (token) {
+  authService.setToken(token)
+} // If there is token in local storage - set it to auth service (class private variable and header of axios instance)
 
 const app = createApp(App) // Creation of the app, based on the imported main component, which will be mounted in index.html
 

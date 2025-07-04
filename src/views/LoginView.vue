@@ -1,6 +1,6 @@
 <script setup>
 import LoginForm from '@/components/Auth/LoginForm/LoginForm.vue'
-import { login } from '@/api/user'
+import { authService } from '@/api/authService'
 import { useRouter } from 'vue-router'
 import { useMutation } from '@/composables/useMutation'
 
@@ -10,7 +10,10 @@ const {
   isLoading,
   error,
   mutation: handleLoginUser,
-} = useMutation({ mutationFn: login, onSuccess: () => router.replace('/map') })
+} = useMutation({
+  mutationFn: (credentials) => authService.login(credentials),
+  onSuccess: () => router.replace('/map'),
+})
 
 // const handleLoginUser = async (credentials) => {
 //   try {
@@ -30,3 +33,10 @@ const {
 
   <div v-if="error" class="text-red-500">{{ error.message }}</div>
 </template>
+
+// Instead of using primary "login" function - using function, which accepts credentials and calls
+"login" method of authService with that credentials, which has ability to set access token, achieved
+from the response, for further requests to the server. Using other function instead of just
+"authService.login" because calling the method from the authService (but not a function!). And
+method will loose "this" context, so we should wrap the calling in a outer function, through which
+we correctly can send credentials to the method "login".
