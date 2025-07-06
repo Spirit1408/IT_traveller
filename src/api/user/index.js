@@ -15,4 +15,4 @@ export const logout = () => {
 export const refresh = () => {
   return clientFetch.get('/user/refresh')
 }
-// API for authorization and registration of users.
+// API for authorization and registration of users. Is replaced by authService instance.
