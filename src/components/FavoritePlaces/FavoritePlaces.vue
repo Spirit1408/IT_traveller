@@ -13,7 +13,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['place-clicked'])
+const emit = defineEmits(['place-clicked', 'create'])
 </script>
 
 <template>
@@ -32,7 +32,7 @@ const emit = defineEmits(['place-clicked'])
       @click="emit('place-clicked', place.id)"
     />
 
-    <IButton class="mt-10 w-full" variant="gradient">Додати маркер</IButton>
+    <IButton class="mt-10 w-full" variant="gradient" @click="emit('create')">Додати маркер</IButton>
   </div>
 </template>
 
@@ -42,3 +42,6 @@ on it we can render the list of markers and putting specific data of each of the
 marker is active or not. Clicking on the element should emit "place-clicked" event with id of the
 clicked place to App component, where we will update "activeId" by id of the clicked place and
 gather its coordinates.
+
+// "create" event is emitted to HomepageView component, where we will open
+CreateNewPlaceModal component on clicking on this button.

@@ -6,8 +6,6 @@ import { mapSettings } from '../map/settings.js'
 import MarkerIcon from '../components/icons/MarkerIcon.vue'
 import { onMounted, ref } from 'vue'
 import { getFavoritePlaces } from '@/api/favorite-places'
-import { useModal } from '@/composables/useModal'
-import CreateNewPlaceModal from '@/components/CreateNewPlaceModal/CreateNewPlaceModal.vue'
 
 const { style, apiToken } = mapSettings
 
@@ -15,7 +13,6 @@ const favoritePlaces = ref([])
 const activeId = ref(null)
 const map = ref(null)
 const mapMarkerLngLat = ref(null)
-const { isOpen, openModal, closeModal } = useModal()
 
 const changeActiveId = (id) => {
   activeId.value = id
@@ -48,9 +45,7 @@ onMounted(async () => {
 <template>
   <main class="flex h-screen">
     <div class="bg-white h-full w-[400px] shrink-0 overflow-auto pb-10">
-      <FavoritePlaces :places="favoritePlaces" :active-id="activeId" @place-clicked="changePlace" @create="openModal" />
-
-      <CreateNewPlaceModal :is-open="isOpen" @close="closeModal" @submit="console.log" />
+      <FavoritePlaces :places="favoritePlaces" :active-id="activeId" @place-clicked="changePlace" />
     </div>
 
     <div class="w-full h-full flex items-center justify-center text-6xl">
@@ -82,6 +77,12 @@ onMounted(async () => {
   </main>
 </template>
 
-// Adding modal component (for adding an information about new favorite place). Gathering ref and
-methods from composable for open and close modal actions. Using CreateNewPlaceModal component in
-template to render the specific modal for adding new favorite place.
+// Implementing feature of addin a marker on the map. Adding custom marker in Mapbox, which will be
+shown just if marker is setted (has its coordinates). Adding event mb-click to get coordinates of
+the marker while clicking somewhere on the map, through the handler. While clicking on the map -
+coordinates from the click event will be stored in "mapMarkerLngLat" variable. What will cause
+showing our custom marker element on the map. Why using handler? Because lngLat stored in object in
+event, we need to get the coordinates and put them to the array, which will be stored in
+"mapMarkerLngLat", value of which (array) will be passed to MapboxMarker prop lngLat. Clicking on
+the marker with the same coordinates will remove the marker. Anchor: "bottom" - marker will be shown
+above the cursor while setting (centered to the cursos by default).
