@@ -30,7 +30,7 @@ const componentName = computed(() => (props.to ? RouterLink : 'button'))
   >
     <template v-if="props.isLoading">Завантаження...</template>
 
-    <template v-else> <slot></slot></template>
+    <template v-else><slot></slot></template>
   </component>
 </template>
 

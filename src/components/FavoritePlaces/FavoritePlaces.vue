@@ -8,7 +8,7 @@ const props = defineProps({
     required: true,
   },
   activeId: {
-    type: [Number, null],
+    type: [String, null],
     required: true,
   },
 })
@@ -24,12 +24,12 @@ const emit = defineEmits(['place-clicked', 'create'])
 
     <FavoritePlace
       v-for="place in props.places"
-      :key="place.id"
+      :key="place._id"
       :title="place.title"
       :description="place.description"
       :img="place.img"
-      :isActive="place.id === props.activeId"
-      @click="emit('place-clicked', place.id)"
+      :isActive="place._id === props.activeId"
+      @click="emit('place-clicked', place._id)"
     />
 
     <IButton class="mt-10 w-full" variant="gradient" @click="emit('create')">Додати маркер</IButton>

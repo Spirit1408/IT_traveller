@@ -4,16 +4,24 @@ import IInput from '../IInput/IInput.vue'
 import InputImage from '../InputImage/InputImage.vue'
 import IButton from '../IButton/IButton.vue'
 import MarkerIcon from '../icons/MarkerIcon.vue'
-import { computed, reactive, toRaw } from 'vue'
+import { computed, reactive } from 'vue'
 
 const props = defineProps({
   isOpen: {
     default: false,
     type: Boolean,
   },
+  isLoading: {
+    default: false,
+    type: Boolean,
+  },
+  hasError: {
+    default: null,
+    type: Object,
+  }
 })
 
-const emit = defineEmits(['close', 'submit'])
+const emit = defineEmits(['submit', 'close'])
 
 const formData = reactive({
   title: '',
@@ -28,11 +36,17 @@ const handleUpload = (url) => {
 const uploadText = computed(() => {
   return formData.image ? 'Натисніть тут, щоб змінити фото' : 'Натисніть тут, щоб додати фото'
 })
+
+const resetForm = () => {
+  formData.title = ''
+  formData.description = ''
+  formData.image = null
+}
 </script>
 
 <template>
   <IModal v-if="props.isOpen" @close="emit('close')">
-    <form class="min-w-[420px]" @submit.prevent="(emit('submit', toRaw(formData)), emit('close'))">
+    <form class="min-w-[420px]" @submit.prevent="(emit('submit', formData, resetForm))">
       <div class="font-bold flex gap-1 justify-center mb-10"><MarkerIcon />Додати маркер</div>
 
       <IInput label="Локація" class="mb-4" v-model="formData.title" />
@@ -56,7 +70,9 @@ const uploadText = computed(() => {
         <InputImage @uploaded="handleUpload">{{ uploadText }}</InputImage>
       </div>
 
-      <IButton class="w-full" variant="gradient" type="submit">Додати</IButton>
+      <IButton class="w-full" variant="gradient" type="submit" :is-loading="props.isLoading">Додати</IButton>
+
+      <div v-if="props.hasError" class="text-red-500 mt-2">Щось пішло не так</div>
     </form>
   </IModal>
 </template>
@@ -69,3 +85,5 @@ uploaded event and then, through function, which receiving base64 string as an a
 to the reactive object. Reactive object converting to raw object and then sending it to the parent
 component. If image is in formData - displaying it. Also changing text of the button depending on
 the existence of the image in formData.
+
+// Add resetting form data after successfull submit. In reactive object we should clear each field manually. Will be emitted tothe parent component and executed in handler.
