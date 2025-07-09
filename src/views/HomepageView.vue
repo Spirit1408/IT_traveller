@@ -82,6 +82,7 @@ onMounted(() => {
         :active-id="activeId"
         @place-clicked="changePlace"
         @create="openModal"
+        @updated="getPlaces"
       />
 
       <CreateNewPlaceModal
@@ -163,3 +164,6 @@ reactively.
 
 // Add click.stop to button to prevent propagation of the event to the parent element -
 it prevents showing the custom marker when clicking on exisiting marker on the map.
+
+// Add "updated" event to HomepageView component to update the list of favorite places after
+successful updating the place.
