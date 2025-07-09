@@ -2,6 +2,7 @@
 import FavoritePlaceButton from './FavoritePlaceButton.vue'
 import EditIcon from './EditIcon.vue'
 import DeleteIcon from './DeleteIcon.vue'
+import fallbackImage from '../../assets/img/ukraine.png'
 
 const props = defineProps({
   title: {
@@ -25,7 +26,7 @@ const emit = defineEmits(['edit', 'delete'])
 <template>
   <section class="text-gray mb-6 last-of-type:mb-0">
     <div class="flex gap-4">
-      <img class="w-[76px] h-[76px] shrink-0" :src="props.img" alt="" />
+      <img class="w-[76px] h-[76px] shrink-0 rounded-es-md" :src="props.img || fallbackImage" alt="" />
 
       <div class="flex-1">
         <div class="flex justify-between items-center mb-2">
