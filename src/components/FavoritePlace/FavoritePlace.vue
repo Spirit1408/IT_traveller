@@ -18,6 +18,8 @@ const props = defineProps({
     required: true,
   },
 })
+
+const emit = defineEmits(['edit', 'delete'])
 </script>
 
 <template>
@@ -30,11 +32,11 @@ const props = defineProps({
           <h2 class="font-bold text-sm text-[#2c2c2c]">{{ props.title }}</h2>
 
           <div class="flex gap-2">
-            <FavoritePlaceButton>
+            <FavoritePlaceButton @click="emit('edit')">
               <EditIcon />
             </FavoritePlaceButton>
 
-            <FavoritePlaceButton>
+            <FavoritePlaceButton @click="emit('delete')">
               <DeleteIcon />
             </FavoritePlaceButton>
           </div>
@@ -53,3 +55,6 @@ const props = defineProps({
 // Dynamically rendering component with the specific data, received from props. Checking if the
 place is active or not. Note, that not neccesarily to emit click event from here (as was done in the
 previous verion (markers)) - we can emit click event with place id from FavoritePlaces component!
+
+// Adding emits of functions for editing and deleting favorite place when clicking on the edit and
+delete buttons respectively.

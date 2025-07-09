@@ -113,7 +113,7 @@ onMounted(() => {
           :lngLat="place.coordinates"
           anchor="bottom"
         >
-          <button @click="changeActiveId(place._id)">
+          <button @click.stop="changeActiveId(place._id)">
             <MarkerIcon class="h-8 w-8" :isActive="place._id !== activeId" />
           </button>
         </MapboxMarker>
@@ -157,4 +157,9 @@ the form inputs.
 using onMounted() to write data to the favoritePlaces as in a ref, we will use composable function
 getPlaces and data (ref from useMutation with gathered response from the server). Variable
 favoritePlaces will be computed and dymaically updated, if response.data exists or will return an
-ampty array, if response data doesn't exist or empty. After adding new favorite place (addPlace) - function getPlaces should be called inside of onSuccess() function for updating favoritePlaces reactively.
+ampty array, if response data doesn't exist or empty. After adding new favorite place (addPlace) -
+function getPlaces should be called inside of onSuccess() function for updating favoritePlaces
+reactively.
+
+// Add click.stop to button to prevent propagation of the event to the parent element -
+it prevents showing the custom marker when clicking on exisiting marker on the map.
