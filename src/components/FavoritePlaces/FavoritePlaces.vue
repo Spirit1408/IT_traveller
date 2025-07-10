@@ -5,7 +5,8 @@ import EditPlaceModal from '../EditPlaceModal/EditPlaceModal.vue'
 import { useModal } from '@/composables/useModal'
 import { computed, ref } from 'vue'
 import { useMutation } from '@/composables/useMutation'
-import { updateFavoritePlace } from '@/api/favorite-places'
+import { deleteFavoritePlace, updateFavoritePlace } from '@/api/favorite-places'
+import ConfirmationModal from '../ConfirmationModal/ConfirmationModal.vue'
 
 const props = defineProps({
   places: {
@@ -16,11 +17,20 @@ const props = defineProps({
     type: [String, null],
     required: true,
   },
+  isLoading: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits(['place-clicked', 'create', 'updated'])
 
 const { openModal: openEditModal, closeModal: closeEditModal, isOpen: isEditOpen } = useModal()
+const {
+  openModal: openConfirmationModal,
+  closeModal: closeConfirmationModal,
+  isOpen: isConfirmationModalOpen,
+} = useModal()
 
 const { mutation: updatePlace, isLoading: isUpdateLoading } = useMutation({
   mutationFn: (formData) => updateFavoritePlace(formData),
@@ -29,16 +39,39 @@ const { mutation: updatePlace, isLoading: isUpdateLoading } = useMutation({
   },
 })
 
+const {
+  mutation: deletePlace,
+  isLoading: isDeleteLoading,
+  error: deleteError,
+} = useMutation({
+  mutationFn: (id) => deleteFavoritePlace(id),
+  onSuccess: () => {
+    closeConfirmationModal()
+    idOfDeletedPlace.value = null
+    emit('updated')
+  },
+})
+
 const selectedId = ref(null)
 const selectedPlace = computed(() => props.places.find((place) => place.id === selectedId.value))
+const idOfDeletedPlace = ref(null)
 
 const handleEditPlace = (id) => {
   selectedId.value = id
   openEditModal()
 }
 
+const handleOpenConfirmationModal = (id) => {
+  idOfDeletedPlace.value = id
+  openConfirmationModal()
+}
+
 const handleSubmit = (formData) => {
   updatePlace(formData)
+}
+
+const handleDeletePlace = () => {
+  deletePlace(idOfDeletedPlace.value)
 }
 </script>
 
@@ -46,7 +79,7 @@ const handleSubmit = (formData) => {
   <div class="px-6 text-black">
     <div class="text-gray mb-4">Додані маркери</div>
 
-    <div v-if="!props.places.length" class="text-center">Немає збережених місць</div>
+    <div v-if="!props.places.length && !props.isLoading" class="text-center">Немає збережених місць</div>
 
     <FavoritePlace
       v-for="place in props.places"
@@ -57,14 +90,24 @@ const handleSubmit = (formData) => {
       :isActive="place.id === props.activeId"
       @click="emit('place-clicked', place.id)"
       @edit="handleEditPlace(place.id)"
+      @delete="handleOpenConfirmationModal(place.id)"
     />
 
     <EditPlaceModal
       :is-open="isEditOpen"
-      @close="closeEditModal"
       :place="selectedPlace"
-      @submit="handleSubmit"
       :isLoading="isUpdateLoading"
+      @close="closeEditModal"
+      @submit="handleSubmit"
+    />
+
+    <ConfirmationModal
+      title="Ви впевнені, що хочете видалити місце?"
+      :is-open="isConfirmationModalOpen"
+      :isLoading="isDeleteLoading"
+      :is-error="deleteError"
+      @cancel="closeConfirmationModal"
+      @confirm="handleDeletePlace"
     />
 
     <IButton class="mt-10 w-full" variant="gradient" @click="emit('create')">Додати маркер</IButton>
@@ -79,9 +122,7 @@ clicked place to App component, where we will update "activeId" by id of the cli
 gather its coordinates.
 
 // "create" event is emitted to HomepageView component, where we will open
-CreateNewPlaceModal component on clicking on this button.
-
-// Add EditPlaceModal component to render
+CreateNewPlaceModal component on clicking on this button. // Add EditPlaceModal component to render
 the specific modal for editing the favorite place. Add openEditModal and closeEditModal functions
 from composable to open and close the modal. Also adding isEditOpen ref to check if the modal is
 open or not.
@@ -100,3 +141,12 @@ statement (for the button in the modal).
 
 // Define new event "updated" to HomepageView component to
 update the list of favorite places after successful updating the place.
+
+// Add deleting logic to the
+FavoritePlaces component. Add ConfirmationModal component to render the specific modal for
+confirming the deleting of favorite place with states and functions. Click on the delete button in
+FavoritePlace will cause an opening the modal window. At the same time id of the place will be
+stored in ref (handleOpenConfirmationModal). Click on cancel button will close the modal window,
+click on confirm button will call deletePlace function (with stored id of the place), which will
+make an async call to the server to delete the place. After successful operation modal window will
+be closed and ref for storaging the id of the deleted place will be cleared.

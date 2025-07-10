@@ -17,7 +17,11 @@ const map = ref(null)
 const mapMarkerLngLat = ref(null)
 const { isOpen, openModal, closeModal } = useModal()
 
-const { mutation: getPlaces, data } = useMutation({
+const {
+  mutation: getPlaces,
+  data,
+  isLoading: isGettingPlaces,
+} = useMutation({
   mutationFn: () => getFavoritePlaces(),
 })
 
@@ -78,19 +82,22 @@ onMounted(() => {
   <main class="flex h-screen">
     <div class="bg-white h-full w-[400px] shrink-0 overflow-auto pb-10">
       <FavoritePlaces
-        :places="favoritePlaces"
-        :active-id="activeId"
-        @place-clicked="changePlace"
-        @create="openModal"
-        @updated="getPlaces"
+      :places="favoritePlaces"
+      :active-id="activeId"
+      :is-loading="isGettingPlaces"
+      @place-clicked="changePlace"
+      @create="openModal"
+      @updated="getPlaces"
       />
+
+      <div v-if="isGettingPlaces" class="text-center text-black p-4">Завантаження...</div>
 
       <CreateNewPlaceModal
         :is-open="isOpen"
-        @close="closeModal"
-        @submit="handleAddPlace"
         :is-loading="isAddingPlace"
         :has-error="error"
+        @close="closeModal"
+        @submit="handleAddPlace"
       />
     </div>
 
@@ -125,9 +132,7 @@ onMounted(() => {
 
 // Adding modal component (for adding an information about new favorite place). Gathering ref and
 methods from composable for open and close modal actions. Using CreateNewPlaceModal component in
-template to render the specific modal for adding new favorite place.
-
-// Using useMutation composable
+template to render the specific modal for adding new favorite place. // Using useMutation composable
 for adding new favorite place action (sending data to the server). Will accept a function for
 asyncronous sending new favorite place (received from submit in CreateNewPlaceModal component). But
 before - data should be sent in a proper format. In handleAddPlace function - receiving data from
@@ -137,33 +142,22 @@ receives function for sending data to the server, make her asyncronous and while
 formed data from handleAddPlace and sending it to the inner asyncronous function (addFavoritePlace).
 And then, after receiving response from the server, adding new favorite place to favoritePlaces
 array, closing the modal and resetting the mapMarkerLngLat ref (for removing custom marker - to
-prevent adding new place to the same coordinates).
-
-// Adding reactivity to the button in
+prevent adding new place to the same coordinates). // Adding reactivity to the button in
 CreateNewPlaceModal component (for showing loading state while sending data to the server). Adding
 error handling in CreateNewPlaceModal component (for displaying error message if exists, f.e. marker
-wasn't set before submit - no coordinates data is going to the server).
-
-// Should pay attention to
+wasn't set before submit - no coordinates data is going to the server). // Should pay attention to
 the names and types of the properties, received from the server. For example - was "id" with type
-"Number" (static data of favorite places) - now "_id" with type "String" (from server).
-
-// From
+"Number" (static data of favorite places) - now "_id" with type "String" (from server). // From
 CreateNewPlaceModal component emitting event "submit" with data and function for resetting the form
 - adding resetForm function to reset form after submit (should be sent to handler as an argument).
 In this case handler also should be an asyncronous function - for await the response and after clear
-the form inputs.
-
-// To add reactivity after adding/updating or removing favorite place - instead of
+the form inputs. // To add reactivity after adding/updating or removing favorite place - instead of
 using onMounted() to write data to the favoritePlaces as in a ref, we will use composable function
 getPlaces and data (ref from useMutation with gathered response from the server). Variable
 favoritePlaces will be computed and dymaically updated, if response.data exists or will return an
 ampty array, if response data doesn't exist or empty. After adding new favorite place (addPlace) -
 function getPlaces should be called inside of onSuccess() function for updating favoritePlaces
-reactively.
-
-// Add click.stop to button to prevent propagation of the event to the parent element -
-it prevents showing the custom marker when clicking on exisiting marker on the map.
-
-// Add "updated" event to HomepageView component to update the list of favorite places after
-successful updating the place.
+reactively. // Add click.stop to button to prevent propagation of the event to the parent element -
+it prevents showing the custom marker when clicking on exisiting marker on the map. // Add "updated"
+event to HomepageView component to update the list of favorite places after successful updating the
+place.

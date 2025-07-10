@@ -6,7 +6,7 @@ const props = defineProps({
   variant: {
     default: 'primary',
     type: String,
-    validator: (value) => ['primary', 'gradient'].includes(value),
+    validator: (value) => ['primary', 'gradient', 'cancel'].includes(value),
   },
   to: String,
   isLoading: {
@@ -15,9 +15,20 @@ const props = defineProps({
   },
 })
 
-const bgStyles = computed(() =>
-  props.variant === 'gradient' ? 'bg-gradient-to-r from-[#FFA279] to-[#F3743D]' : 'bg-[#FFA270]',
-)
+const bgStyles = computed(() => {
+  if (props.variant === 'gradient') {
+    return 'bg-gradient-to-r from-[#FFA279] to-[#F3743D]'
+  } else if (props.variant === 'cancel') {
+    return 'bg-white'
+  } else {
+    return 'bg-[#FFA270]'
+  }
+})
+
+const btnStyles = computed(() => {
+  return props.variant ==='cancel' ? 'text-[#FFA270] border border-[#FFA270]' : 'text-white hover:bg-[#ffb58d]'
+})
+
 const componentName = computed(() => (props.to ? RouterLink : 'button'))
 </script>
 
@@ -25,8 +36,8 @@ const componentName = computed(() => (props.to ? RouterLink : 'button'))
   <component
     :is="componentName"
     :to="to"
-    class="btn rounded-xl py-[14px] px-10 text-white font-bold -tracking-wider hover:bg-[#ffb58d] duration-300 ease-in-out"
-    :class="bgStyles"
+    class="btn rounded-xl py-[14px] px-10 font-bold -tracking-wider duration-300 ease-in-out"
+    :class="[bgStyles, btnStyles]"
   >
     <template v-if="props.isLoading">Завантаження...</template>
 
