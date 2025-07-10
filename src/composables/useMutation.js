@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 
-export const useMutation = ({mutationFn, onSuccess, onError}) => {
+export const useMutation = ({ mutationFn, onSuccess, onError }) => {
   const data = ref(null)
   const isLoading = ref(false)
   const error = ref(null)

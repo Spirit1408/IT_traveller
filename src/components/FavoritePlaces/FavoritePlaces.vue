@@ -30,7 +30,7 @@ const { mutation: updatePlace, isLoading: isUpdateLoading } = useMutation({
 })
 
 const selectedId = ref(null)
-const selectedPlace = computed(() => props.places.find((place) => place._id === selectedId.value))
+const selectedPlace = computed(() => props.places.find((place) => place.id === selectedId.value))
 
 const handleEditPlace = (id) => {
   selectedId.value = id
@@ -50,13 +50,13 @@ const handleSubmit = (formData) => {
 
     <FavoritePlace
       v-for="place in props.places"
-      :key="place._id"
+      :key="place.id"
       :title="place.title"
       :description="place.description"
       :img="place.img"
-      :isActive="place._id === props.activeId"
-      @click="emit('place-clicked', place._id)"
-      @edit="handleEditPlace(place._id)"
+      :isActive="place.id === props.activeId"
+      @click="emit('place-clicked', place.id)"
+      @edit="handleEditPlace(place.id)"
     />
 
     <EditPlaceModal

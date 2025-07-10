@@ -22,7 +22,7 @@ const props = defineProps({
 })
 
 const formData = ref({
-  _id: '',
+  id: '',
   title: '',
   description: '',
   img: null,

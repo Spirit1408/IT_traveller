@@ -21,7 +21,7 @@ const { mutation: getPlaces, data } = useMutation({
   mutationFn: () => getFavoritePlaces(),
 })
 
-const favoritePlaces = computed(() => data.value?.data ?? [])
+const favoritePlaces = computed(() => data.value ?? [])
 
 const {
   mutation: addPlace,
@@ -41,7 +41,7 @@ const changeActiveId = (id) => {
 }
 
 const changePlace = (id) => {
-  const { coordinates } = favoritePlaces.value.find((place) => place._id === id)
+  const { coordinates } = favoritePlaces.value.find((place) => place.id === id)
   changeActiveId(id)
   map.value.flyTo({ center: coordinates })
 }
@@ -110,12 +110,12 @@ onMounted(() => {
 
         <MapboxMarker
           v-for="place in favoritePlaces"
-          :key="place._id"
+          :key="place.id"
           :lngLat="place.coordinates"
           anchor="bottom"
         >
-          <button @click.stop="changeActiveId(place._id)">
-            <MarkerIcon class="h-8 w-8" :isActive="place._id !== activeId" />
+          <button @click.stop="changeActiveId(place.id)">
+            <MarkerIcon class="h-8 w-8" :isActive="place.id !== activeId" />
           </button>
         </MapboxMarker>
       </MapboxMap>
