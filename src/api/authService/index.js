@@ -48,6 +48,11 @@ class AuthService {
     const { accessToken } = data
     this.setToken(accessToken)
   }
+
+  async getUserInfo() {
+    const { data } = await clientFetch.get('/user/me')
+    return data
+  }
 }
 
 export const authService = new AuthService()

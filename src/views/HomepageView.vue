@@ -9,6 +9,8 @@ import { addFavoritePlace, getFavoritePlaces } from '@/api/favorite-places'
 import { useModal } from '@/composables/useModal'
 import CreateNewPlaceModal from '@/components/CreateNewPlaceModal/CreateNewPlaceModal.vue'
 import { useMutation } from '@/composables/useMutation'
+import UserInfo from '@/components/UserInfo/UserInfo.vue'
+import LogoutButton from '@/components/LogoutButton/LogoutButton.vue'
 
 const { style, apiToken } = mapSettings
 
@@ -80,7 +82,11 @@ onMounted(() => {
 
 <template>
   <main class="flex h-screen">
-    <div class="bg-white h-full w-[400px] shrink-0 overflow-auto pb-10">
+    <div class="relative bg-white h-full w-[400px] shrink-0 overflow-auto pb-10">
+      <UserInfo />
+
+      <div v-if="isGettingPlaces" class="text-center text-black p-4">Завантаження...</div>
+
       <FavoritePlaces
       :places="favoritePlaces"
       :active-id="activeId"
@@ -90,7 +96,7 @@ onMounted(() => {
       @updated="getPlaces"
       />
 
-      <div v-if="isGettingPlaces" class="text-center text-black p-4">Завантаження...</div>
+      <LogoutButton class="mt-10" />
 
       <CreateNewPlaceModal
         :is-open="isOpen"
@@ -161,3 +167,7 @@ reactively. // Add click.stop to button to prevent propagation of the event to t
 it prevents showing the custom marker when clicking on exisiting marker on the map. // Add "updated"
 event to HomepageView component to update the list of favorite places after successful updating the
 place.
+
+// Adding UserInfo component which will show user name and show "Оновлення..." if user data is loading
+
+// Adding LogoutButton component to execute logout logic
