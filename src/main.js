@@ -5,6 +5,7 @@ import { createPinia } from 'pinia' // Import of Pinia (state manager, like Redu
 import App from './App.vue' // Import of the main component from file
 import { router } from './router' // Import of created router
 import { authService, TOKEN_KEY } from './api/authService' // Import of auth service
+import i18n from './locales' // Import of created i18n instance for localization
 
 const token = localStorage.getItem(TOKEN_KEY) // Getting token from local storage
 if (token) {
@@ -16,6 +17,8 @@ const app = createApp(App) // Creation of the app, based on the imported main co
 app.use(createPinia()) // Declaration of usage of Pinia states by app, creation of the Pinia instance at the same time
 
 app.use(router) // Using created router with paths of the pages here
+
+app.use(i18n) // Using created i18n instance for localization
 
 app.mount('#app') // Mounting of the app in specific div in index.html
 

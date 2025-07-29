@@ -1,0 +1,55 @@
+{
+  "greeting": {
+    "title": "IT traveler",
+    "description": "A simple and convenient web application that will allow you to mark your favorite places, as well as those you would really like to visit. So don't delay and try it yourself.",
+    "startButton": "Get Started"
+  },
+  "auth": {
+    "registration": {
+      "title": "Create Account",
+      "name": "Full Name",
+      "email": "Email",
+      "password": "Password",
+      "emailPlaceholder": "email@gmail.com",
+      "submitButton": "Create Account"
+    },
+    "login": {
+      "title": "Sign In",
+      "email": "Email",
+      "password": "Password",
+      "emailPlaceholder": "email@gmail.com",
+      "submitButton": "Sign In"
+    }
+  },
+  "map": {
+    "favorites": "Added Markers",
+    "addPlaceBtn": "Add Marker",
+    "addPlaceModal": {
+      "title": "Add Marker",
+      "name": "Location",
+      "description": "Description",
+      "addImageButton": "Click here to add photo",
+      "changeImageButton": "Click here to change photo",
+      "submitButton": "Add"
+    },
+    "updatePlaceModal": {
+      "title": "Edit Marker",
+      "name": "Location",
+      "description": "Description",
+      "changeImageButton": "Click here to select another photo",
+      "submitButton": "Save"
+    },
+    "deletePlaceModal": {
+      "title": "Are you sure you want to delete this place?",
+      "cancelButton": "Cancel",
+      "submitButton": "Confirm",
+      "loadingSubmitButton": "Deleting..."
+    },
+    "common": {
+      "loadingSubmitButton": "Loading...",
+      "errorSubmitButton": "Something went wrong"
+    },
+    "logout": "Logout",
+    "logoutLoading": "Logging out..."
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "greeting": {
+    "title": "IT traveler",
+    "description": "Простий і зручний веб-додаток, який дозволить тобі відмічати твої улюблені місця, а також ті, в яких би ти дуже хотів побувати. Тож не зволікай та спробуй сам.",
+    "startButton": "Почати роботу"
+  },
+  "auth": {
+    "registration": {
+      "title": "Створити акаунт",
+      "name": "Повне ім'я",
+      "email": "Електронна пошта",
+      "password": "Пароль",
+      "emailPlaceholder": "email@gmail.com",
+      "submitButton": "Створити акаунт"
+    },
+    "login": {
+      "title": "Увійти",
+      "email": "Електронна пошта",
+      "password": "Пароль",
+      "emailPlaceholder": "email@gmail.com",
+      "submitButton": "Увійти"
+    }
+  },
+  "map": {
+    "favorites": "Додані маркери",
+    "addPlaceBtn": "Додати маркер",
+    "addPlaceModal": {
+      "title": "Додати маркер",
+      "name": "Локація",
+      "description": "Опис",
+      "addImageButton": "Натисніть тут, щоб додати фото",
+      "changeImageButton": "Натисніть тут, щоб змінити фото",
+      "submitButton": "Додати"
+    },
+    "updatePlaceModal": {
+      "title": "Редагувати маркер",
+      "name": "Локація",
+      "description": "Опис",
+      "changeImageButton": "Натисніть тут, щоб обрати інше фото",
+      "submitButton": "Зберегти"
+    },
+    "deletePlaceModal": {
+      "title": "Ви впевнені, що хочете видалити місце?",
+      "cancelButton": "Відхилити",
+      "submitButton": "Підтвердити",
+      "loadingSubmitButton": "Видаляємо..."
+    },
+    "common": {
+      "loadingSubmitButton": "Завантаження...",
+      "errorSubmitButton": "Щось пішло не так"
+    },
+    "logout": "Вихід",
+    "logoutLoading": "Виходимо..."
+  }
+}
