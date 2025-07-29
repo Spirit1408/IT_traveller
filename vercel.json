@@ -24,7 +24,6 @@
   "installCommand": "npm install",
   "framework": "vite",
   "env": {
-    "NODE_VERSION": "18",
-    "VITE_MAPBOX_TOKEN": "@vite-mapbox-token"
+    "NODE_VERSION": "18"
   }
 }
