@@ -4,7 +4,7 @@ import IInput from '../IInput/IInput.vue'
 import InputImage from '../InputImage/InputImage.vue'
 import IButton from '../IButton/IButton.vue'
 import MarkerIcon from '../icons/MarkerIcon.vue'
-import { computed, reactive } from 'vue'
+import { reactive } from 'vue'
 
 const props = defineProps({
   isOpen: {
@@ -33,10 +33,6 @@ const handleUpload = (url) => {
   formData.image = url
 }
 
-const uploadText = computed(() => {
-  return formData.image ? 'Натисніть тут, щоб змінити фото' : 'Натисніть тут, щоб додати фото'
-})
-
 const resetForm = () => {
   formData.title = ''
   formData.description = ''
@@ -47,14 +43,13 @@ const resetForm = () => {
 <template>
   <IModal v-if="props.isOpen" @close="emit('close')">
     <form class="min-w-[420px]" @submit.prevent="(emit('submit', formData, resetForm))">
-      <div class="font-bold flex gap-1 justify-center mb-10"><MarkerIcon />Додати маркер</div>
+      <div class="font-bold flex gap-1 justify-center mb-10"><MarkerIcon />{{ $t('map.addPlaceModal.title') }}</div>
 
-      <IInput label="Локація" class="mb-4" v-model="formData.title" />
+      <IInput :label="$t('map.addPlaceModal.name')" class="mb-4" v-model="formData.title" />
 
       <IInput
         type="textarea"
-        label="Опис"
-        placeholder="Введіть текст"
+        :label="$t('map.addPlaceModal.description')"
         class="mb-2"
         v-model="formData.description"
       />
@@ -67,12 +62,12 @@ const resetForm = () => {
           class="w-20 h-20 object-cover"
         />
 
-        <InputImage @uploaded="handleUpload">{{ uploadText }}</InputImage>
+        <InputImage @uploaded="handleUpload">{{ formData.image ? $t('map.addPlaceModal.changeImageButton') : $t('map.addPlaceModal.addImageButton') }}</InputImage>
       </div>
 
-      <IButton class="w-full" variant="gradient" type="submit" :is-loading="props.isLoading">Додати</IButton>
+      <IButton class="w-full" variant="gradient" type="submit" :is-loading="props.isLoading">{{ $t('map.addPlaceModal.submitButton') }}</IButton>
 
-      <div v-if="props.hasError" class="text-red-500 mt-2">Щось пішло не так</div>
+      <div v-if="props.hasError" class="text-red-500 mt-2">{{ $t('map.common.errorSubmitButton') }}</div>
     </form>
   </IModal>
 </template>

@@ -10,19 +10,20 @@
       "name": "Full Name",
       "email": "Email",
       "password": "Password",
-      "emailPlaceholder": "email@gmail.com",
+      "emailPlaceholder": "email{'@'}gmail.com",
       "submitButton": "Create Account"
     },
     "login": {
       "title": "Sign In",
       "email": "Email",
       "password": "Password",
-      "emailPlaceholder": "email@gmail.com",
+      "emailPlaceholder": "email{'@'}gmail.com",
       "submitButton": "Sign In"
     }
   },
   "map": {
     "favorites": "Added Markers",
+    "noFavorites": "No saved markers",
     "addPlaceBtn": "Add Marker",
     "addPlaceModal": {
       "title": "Add Marker",

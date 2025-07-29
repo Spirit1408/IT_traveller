@@ -85,7 +85,7 @@ onMounted(() => {
     <div class="relative bg-white h-full w-[400px] shrink-0 overflow-auto pb-10">
       <UserInfo />
 
-      <div v-if="isGettingPlaces" class="text-center text-black p-4">Завантаження...</div>
+      <div v-if="isGettingPlaces" class="text-center text-black p-4">{{ $t('map.common.loadingSubmitButton') }}</div>
 
       <FavoritePlaces
       :places="favoritePlaces"

@@ -77,9 +77,9 @@ const handleDeletePlace = () => {
 
 <template>
   <div class="px-6 text-black">
-    <div class="text-gray mb-4">Додані маркери</div>
+    <div class="text-gray mb-4">{{ $t('map.favorites') }}</div>
 
-    <div v-if="!props.places.length && !props.isLoading" class="text-center">Немає збережених місць</div>
+    <div v-if="!props.places.length && !props.isLoading" class="text-center">{{ $t('map.noFavorites') }}</div>
 
     <FavoritePlace
       v-for="place in props.places"
@@ -102,7 +102,7 @@ const handleDeletePlace = () => {
     />
 
     <ConfirmationModal
-      title="Ви впевнені, що хочете видалити місце?"
+      :title="$t('map.deletePlaceModal.title')"
       :is-open="isConfirmationModalOpen"
       :isLoading="isDeleteLoading"
       :is-error="deleteError"
@@ -110,7 +110,7 @@ const handleDeletePlace = () => {
       @confirm="handleDeletePlace"
     />
 
-    <IButton class="mt-10 w-full" variant="gradient" @click="emit('create')">Додати маркер</IButton>
+    <IButton class="mt-10 w-full" variant="gradient" @click="emit('create')">{{ $t('map.addPlaceBtn') }}</IButton>
   </div>
 </template>
 

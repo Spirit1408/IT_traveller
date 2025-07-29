@@ -11,7 +11,7 @@ const changeLang = () => {
 
 <template>
   <button
-    class="fixed bottom-6 left-6 z-50 flex bg-white rounded-full shadow-lg overflow-hidden backdrop-blur-sm px-2 py-1 text-black"
+    class="fixed bottom-6 right-6 z-50 flex bg-white rounded-full shadow-lg overflow-hidden backdrop-blur-sm px-2 py-1 text-black"
     @click="changeLang"
   >
     <div class="flex gap-2 z-10 text-gray">

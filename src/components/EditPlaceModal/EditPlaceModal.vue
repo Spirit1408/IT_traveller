@@ -49,7 +49,7 @@ watch(
       <div class="flex gap-2 items-center mb-10">
         <MarkerIcon height="18" width="18" />
 
-        <span class="font-bold text-base">Редагувати маркер</span>
+        <span class="font-bold text-base">{{ $t('map.updatePlaceModal.title') }}</span>
       </div>
 
       <form @submit.prevent="emit('submit', formData)">
@@ -63,18 +63,18 @@ watch(
           </div>
 
           <div class="w-7/12">
-            <IInput label="Локація" v-model="formData.title" />
+            <IInput :label="$t('map.updatePlaceModal.name')" v-model="formData.title" />
 
             <div class="mt-4">
-              <IInput label="Опис" type="textarea" v-model="formData.description" />
+              <IInput :label="$t('map.updatePlaceModal.description')" type="textarea" v-model="formData.description" />
             </div>
 
-            <IButton class="mt-10 w-full" variant="gradient" :is-loading="props.isLoading">Зберегти</IButton>
+            <IButton class="mt-10 w-full" variant="gradient" :is-loading="props.isLoading">{{ $t('map.updatePlaceModal.submitButton') }}</IButton>
           </div>
         </div>
 
         <InputImage class="mt-3" @uploaded="handleChangeImg">
-          <span class="text-xs"> Натисніть тут, щоб обрати інше фото</span>
+          <span class="text-xs">{{ $t('map.updatePlaceModal.changeImageButton') }}</span>
         </InputImage>
       </form>
     </div>

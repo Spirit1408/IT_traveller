@@ -10,19 +10,20 @@
       "name": "Повне ім'я",
       "email": "Електронна пошта",
       "password": "Пароль",
-      "emailPlaceholder": "email@gmail.com",
+      "emailPlaceholder": "email{'@'}gmail.com",
       "submitButton": "Створити акаунт"
     },
     "login": {
       "title": "Увійти",
       "email": "Електронна пошта",
       "password": "Пароль",
-      "emailPlaceholder": "email@gmail.com",
+      "emailPlaceholder": "email{'@'}gmail.com",
       "submitButton": "Увійти"
     }
   },
   "map": {
     "favorites": "Додані маркери",
+    "noFavorites": "Немає збережених місць",
     "addPlaceBtn": "Додати маркер",
     "addPlaceModal": {
       "title": "Додати маркер",

@@ -29,15 +29,15 @@ const emit = defineEmits(['confirm', 'cancel'])
     <div class="mb-4 text-lg">{{ props.title }}</div>
 
     <div class="flex gap-3 justify-center">
-      <IButton @click="emit('cancel')" variant="cancel">Відхилити</IButton>
+      <IButton @click="emit('cancel')" variant="cancel">{{ $t('map.deletePlaceModal.cancelButton') }}</IButton>
 
       <IButton variant="gradient" :is-loading="props.isLoading" @click="emit('confirm')">
-        Підтвердити
+        {{ $t('map.deletePlaceModal.submitButton') }}
       </IButton>
     </div>
 
     <div v-if="props.isError" class="text-red-500 mt-4">
-      Щось пішло не так
+      {{ $t('map.deletePlaceModal.errorSubmitButton') }}
     </div>
   </IModal>
 </template>

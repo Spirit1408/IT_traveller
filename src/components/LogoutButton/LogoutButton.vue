@@ -19,10 +19,10 @@ const {
 <template>
   <div>
     <button class="flex gap-2 items-center px-6 text-black" @click="logoutUser">
-      <span v-if="isLoading">Виходимо...</span> <span v-else>Вихід</span> <LogoutIcon />
+      <span v-if="isLoading">{{ $t('map.logoutLoading') }}</span> <span v-else>{{ $t('map.logout') }}</span> <LogoutIcon />
     </button>
 
-    <span v-if="error" class="text-red-500 mt-3">Помилка операції</span>
+    <span v-if="error" class="text-red-500 mt-3">{{ $t('map.common.errorSubmitButton') }}</span>
   </div>
 </template>
 
