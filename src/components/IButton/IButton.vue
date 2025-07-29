@@ -39,7 +39,7 @@ const componentName = computed(() => (props.to ? RouterLink : 'button'))
     class="btn rounded-xl py-[14px] px-10 font-bold -tracking-wider duration-300 ease-in-out"
     :class="[bgStyles, btnStyles]"
   >
-    <template v-if="props.isLoading">Завантаження...</template>
+    <template v-if="props.isLoading">{{ $t('map.common.loadingSubmitButton') }}</template>
 
     <template v-else><slot></slot></template>
   </component>

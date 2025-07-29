@@ -21,16 +21,19 @@ defineProps({
 <template>
   <form @submit.prevent="emit('submit', toRaw(userData))">
     <IInput
-      label="Електронна пошта"
+      :label="$t('auth.login.email')"
       class="mb-4"
       type="email"
-      placeholder="email@gmail.com"
+      :placeholder="$t('auth.login.emailPlaceholder')"
       v-model="userData.email"
     />
-    <IInput label="Пароль" type="password" v-model="userData.password" />
+    <IInput :label="$t('auth.login.password')" type="password" v-model="userData.password" />
 
-    <IButton class="mt-10 w-full" variant="gradient" type="submit" :isLoading="isLoading">Увійти</IButton>
+    <IButton class="mt-10 w-full" variant="gradient" type="submit" :isLoading="isLoading">{{
+      $t('auth.login.submitButton')
+    }}</IButton>
   </form>
 </template>
 
-// Will replace FormContainer (which was the form-wrapper) (and it's styles) to the wrapper of RouterView and RouterLinks in AuthView page. Here will use just form element.
+// Will replace FormContainer (which was the form-wrapper) (and it's styles) to the wrapper of
+RouterView and RouterLinks in AuthView page. Here will use just form element.

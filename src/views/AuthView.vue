@@ -8,11 +8,11 @@ import { RouterView, RouterLink } from 'vue-router'
     <section class="w-full p-10 bg-white rounded-2xl">
       <div class="flex justify-center gap-11 mb-10">
         <RouterLink to="registration" class="text-gray" exact-active-class="text-primary"
-          >Створити акаунт</RouterLink
+          >{{ $t('auth.registration.title') }}</RouterLink
         >
 
         <RouterLink to="login" class="text-gray" exact-active-class="text-primary"
-          >Увійти</RouterLink
+          >{{ $t('auth.login.title') }}</RouterLink
         >
       </div>
 

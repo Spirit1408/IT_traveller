@@ -8,14 +8,11 @@ import BaseLayout from '@/layouts/BaseLayout.vue'
     <div class="text-center">
       <img class="inline mb-6" src="../assets/img/map-pin.svg" alt="pin logo" />
 
-      <h1 class="font-bold text-[38px] mb-7">IT traveler</h1>
+      <h1 class="font-bold text-[38px] mb-7">{{ $t('greeting.title') }}</h1>
 
-      <p class="leading-6 mb-11">
-        Простий і зручний веб-додаток, який дозволить тобі відмічати твої улюблені місця, а також ті,
-        в яких би ти дуже хотів побувати. Тож не зволікай та спробуй сам.
-      </p>
+      <p class="leading-6 mb-11">{{ $t('greeting.description') }}</p>
 
-      <IButton to="auth">Почати роботу</IButton>
+      <IButton to="auth">{{ $t('greeting.startButton') }}</IButton>
     </div>
   </BaseLayout>
 </template>

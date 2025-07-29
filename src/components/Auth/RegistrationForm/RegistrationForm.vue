@@ -21,18 +21,18 @@ defineProps({
 
 <template>
   <form @submit.prevent="emit('submit', toRaw(userData))">
-    <IInput label="Повне ім'я" class="mb-4" v-model="userData.name" />
+    <IInput :label="$t('auth.registration.name')" class="mb-4" v-model="userData.name" />
     <IInput
-      label="Електронна пошта"
+      :label="$t('auth.registration.email')"
       class="mb-4"
       type="email"
-      placeholder="email@gmail.com"
+      :placeholder="$t('auth.registration.emailPlaceholder')"
       v-model="userData.email"
     />
-    <IInput label="Пароль" type="password" v-model="userData.password" />
+    <IInput :label="$t('auth.registration.password')" type="password" v-model="userData.password" />
 
     <IButton class="mt-10 w-full" variant="gradient" type="submit" :isLoading="isLoading">
-      Створити аккаунт
+      {{ $t('auth.registration.submitButton') }}
     </IButton>
   </form>
 </template>
